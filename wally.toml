@@ -1,7 +1,7 @@
 [package]
 name = "christian-toney/edtw-stage"
 description = "A class for servers to easily parse and edit stages in Everyone Destroys the World."
-version = "1.0.6"
+version = "1.0.7"
 registry = "https://github.com/UpliftGames/wally-index"
 realm = "server"
 repository = "https://github.com/EveryoneDestroysTheWorld/stage"

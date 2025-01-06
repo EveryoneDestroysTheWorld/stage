@@ -202,57 +202,6 @@ function Stage.fromID(id: string): Stage
   
 end
 
--- Creates a stage on behalf of the player.
--- function Profile.__index:createStage(): Stage.Stage
-
---   local timeCreated = DateTime.now().UnixTimestampMillis;
---   local stage = Stage.new({
---     id = Stage:generateID();
---     name = "Unnamed Stage";
---     timeUpdated = timeCreated;
---     timeCreated = timeCreated;
---     description = "";
---     isPublished = false;
---     permissionOverrides = {};
---     members = {
---       {
---         id = self.id;
---         role = "Admin" :: "Admin";
---       }
---     };
---   });
-
---   stage:updateMetadata(HttpService:JSONDecode(stage:toString()));
-
---   -- Add this stage to the player's inventory.
---   local stageInventoryKeyList = DataStore.Inventory:ListKeysAsync(`{self.id}/stages`);
---   while not stageInventoryKeyList.IsFinished do
-
---     stageInventoryKeyList:AdvanceToNextPageAsync();
-
---   end;
---   local latestKeys = stageInventoryKeyList:GetCurrentPage();
---   local latestKey = (latestKeys[#latestKeys] or {KeyName = `{self.id}/stages/1`}).KeyName;
---   DataStore.Inventory:UpdateAsync(latestKey, function(encodedStageIDs)
-    
---     local stageIDs = HttpService:JSONDecode(encodedStageIDs or "{}");
---     table.insert(stageIDs, stage.id);
---     return HttpService:JSONEncode(stageIDs);
-
---   end);
-
---   -- Notify the player if they're here.
---   local player = Players:GetPlayerByUserId(self.id);
---   if player then
-
---     ReplicatedStorage.Shared.Events.StageAdded:FireClient(player, stage);
-
---   end;
-  
---   return stage;
-
--- end;
-
 -- Returns a list of the player's stages. Removes stage IDs that cannot be found.
 function Stage.listFromOwnerID(ownerID: number): {Stage}
 
@@ -339,7 +288,7 @@ function Stage:generateID(): string
     -- Generate a stage ID.
     possibleID = HttpService:GenerateGUID();
     local canGetStage = pcall(function() Stage.fromID(possibleID) end);
-    if not canGetStage then 
+    if canGetStage then 
 
       possibleID = nil;
 
